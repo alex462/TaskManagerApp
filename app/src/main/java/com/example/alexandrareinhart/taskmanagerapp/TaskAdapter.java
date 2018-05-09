@@ -3,13 +3,20 @@ package com.example.alexandrareinhart.taskmanagerapp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,7 +24,10 @@ import butterknife.ButterKnife;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private List<Task> taskList;
+    private List<Task> incompleteTasks;
+    private List<Task> completedTasks;
     private AdapterCallback adapterCallback;
+
 
     public TaskAdapter(List<Task> taskList, AdapterCallback adapterCallback){
 
@@ -38,6 +48,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         holder.bindTask(taskList.get(position));
         holder.itemView.setOnClickListener(holder.onClick(taskList.get(position)));
         holder.itemView.setOnLongClickListener(holder.onLongClick(taskList.get(position)));
+//        holder.itemView.setOnDoubleTapListener(holder.onDoubleTapListener(taskList.get(position)));
     }
 
     @Override
@@ -50,6 +61,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         taskList = list;
         notifyDataSetChanged();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -74,6 +86,27 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
             //2:30:00 and last video 9:49
             //TODO - bind task, code method
+            taskTitle.setText(task.getTaskTitle());
+            dueDate.setText(adapterCallback.getContext().getString(R.string.complete_by_date));
+
+            if(task.isPriority()) {
+                rowLayout.setBackgroundResource(R.color.paleRed);
+            }
+
+            if(task.isCompleted()) {
+                completedDate.setVisibility(View.VISIBLE);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(task.getDate());
+                Date date = calendar.getTime();
+                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/YYYY", Locale.US);
+                completedDate.setText(adapterCallback.getContext().getString(R.string.completed_on_date, formatter.format(date)));
+                completedTasks.add(task);
+
+            } else {
+                rowLayout.setBackgroundResource(R.color.paleGreen);
+                completedDate.setVisibility(View.INVISIBLE);
+                incompleteTasks.add(task);
+            }
         }
 
         public View.OnClickListener onClick(final Task task) {
@@ -94,6 +127,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 }
             };
         }
+
+
+
     }
 
     public interface AdapterCallback {
@@ -101,5 +137,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         Context getContext();
         void rowClicked(Task task);
         void rowLongClicked(Task task);
+
     }
 }

@@ -4,10 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.TextView;
 
 import java.util.List;
@@ -16,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements TaskAdapter.AdapterCallback, TaskCreatorFragment.ActivityCallback {
+public class MainActivity extends AppCompatActivity implements TaskAdapter.AdapterCallback, TaskCreatorFragment.ActivityCallback, GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener {
 
     @BindView(R.id.task_recycler_view)
     protected RecyclerView recyclerView;
@@ -26,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
     private TaskDatabase taskDatabase;
     private TaskAdapter taskAdapter;
     private List<Task> taskList;
+    private List<Task> incompleteTasks;
+    private List<Task> completedTasks;
+    private GestureDetectorCompat gestureDetectorCompat;
 
     private TextView mTextMessage;
 
@@ -61,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
         taskDatabase = ((TaskApplication) getApplicationContext()).getDatabase();
         
         setUpRecyclerView();
+
+        this.gestureDetectorCompat = new GestureDetectorCompat(this, this);
+        gestureDetectorCompat.setOnDoubleTapListener(this);
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -109,5 +118,50 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
     @Override
     public void rowLongClicked(Task task) {
 
+    }
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        return false;
     }
 }
