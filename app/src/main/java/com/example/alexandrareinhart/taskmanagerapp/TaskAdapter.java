@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -54,7 +55,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         @BindView(R.id.task_item_row_layout)
         protected ConstraintLayout rowLayout;
-        //TODO - complete item_task.xml then bind all items
+        @BindView(R.id.task_title_textView)
+        protected TextView taskTitle;
+        @BindView(R.id.instructions_for_details_textView)
+        protected TextView detailsText;
+        @BindView(R.id.due_date_textView)
+        protected TextView dueDate;
+        @BindView(R.id.date_completed_textView)
+        protected TextView completedDate;
 
         public ViewHolder(View itemView){
 
