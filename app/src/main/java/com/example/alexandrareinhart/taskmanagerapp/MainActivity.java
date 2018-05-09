@@ -99,12 +99,14 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
         taskAdapter.updateList(taskDatabase.taskDao().getTasks());
     }
 
+    //selects task to view details
     @Override
     public void rowClicked(Task task) {
 
-        
+
     }
 
+    //prompt alert dialog to confirm task completed
     @Override
     public void rowLongClicked(Task task) {
 
