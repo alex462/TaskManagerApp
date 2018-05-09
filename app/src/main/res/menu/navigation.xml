@@ -5,30 +5,27 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/round_home"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_add_new"
-        android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/title_add_new"
-        />
+        android:icon="@drawable/add_new"
+        android:title="@string/title_add_new" />
 
     <item
         android:id="@+id/navigation_view_all"
-        android:icon="@android:drawable/ic_menu_view"
-        android:title="@string/title_view_all"
-         />
+        android:icon="@drawable/view_all"
+        android:title="@string/title_view_all" />
 
     <item
         android:id="@+id/navigation_view_incomplete"
-        android:icon="@android:drawable/checkbox_off_background"
-        android:title="@string/title_view_incomplete"
-         />
+        android:icon="@drawable/unchecked_box"
+        android:title="@string/title_view_incomplete" />
 
     <item
         android:id="@+id/navigation_view_completed"
-        android:icon="@android:drawable/checkbox_on_background"
+        android:icon="@drawable/checked_box"
         android:title="@string/title_view_completed"
         app:showAsAction="withText" />
 
