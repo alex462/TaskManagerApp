@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">DONE DID IT Task Manager</string>
+    <string name="title_home">Home</string>
+    <string name="title_add_new">New Task</string>
+    <string name="title_add">Add New Task</string>
+    <string name="title_view_all">View All</string>
+    <string name="title_view_incomplete">View Incomplete</string>
+    <string name="title_view_completed">View Completed</string>
+    <string name="welcome_text">Welcome to DONE DID IT task manager. Add a task to begin.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="add_task_instructions">Complete all fields,\nthen select SUBMIT to add your task\nto the task manager.</string>
+    <string name="enter_title">Enter title of task</string>
+    <string name="enter_due_date">Enter due date</string>
+    <string name="enter_details">Enter task details</string>
+    <string name="submit">SUBMIT</string>
+</resources>
