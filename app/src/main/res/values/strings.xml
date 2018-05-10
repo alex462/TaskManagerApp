@@ -16,4 +16,7 @@
     <string name="complete_by_date">COMPLETE BY: %1$s</string>
     <string name="completed_on_date">COMPLETED ON: %1$s</string>
     <string name="view_details_text">Select to view details.</string>
+    <string name="all_tasks">All Tasks</string>
+    <string name="incomplete_tasks">Incomplete Tasks</string>
+    <string name="completed_tasks">Completed Tasks</string>
 </resources>

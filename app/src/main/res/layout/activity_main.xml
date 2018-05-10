@@ -35,7 +35,7 @@
         android:id="@+id/welcome_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/welcome_text"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
@@ -48,13 +48,13 @@
         android:id="@+id/task_recycler_view"
         android:background="@color/colorPrimaryDark"
         android:layout_width="0dp"
-        android:layout_height="401dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_textView"
         app:layout_constraintVertical_bias="0.662" />
 
     <FrameLayout
@@ -62,8 +62,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:elevation="5dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

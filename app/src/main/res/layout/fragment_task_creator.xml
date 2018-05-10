@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
             android:textColor="@color/paleGreen"
-            android:textColorHighlight="@color/colorAccent" />
+            android:textColorHighlight="@color/colorPrimary" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
             android:textColor="@color/paleGreen"
-            android:textColorHighlight="@color/colorAccent"/>
+            android:textColorHighlight="@color/colorPrimary"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
             android:textColor="@color/paleGreen"
-            android:textColorHighlight="@color/colorAccent"/>
+            android:textColorHighlight="@color/colorPrimary"/>
     </android.support.design.widget.TextInputLayout>
 
     <Button

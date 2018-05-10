@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    //TODO - create method to return home
                     return true;
                 case R.id.navigation_add_new:
 //                    mTextMessage.setText(R.string.title_add_new);
@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
     @Override
     public void addClicked() {
 
-//        Toast.makeText(this, "added to database, addclicked fail", Toast.LENGTH_LONG).show();
         getSupportFragmentManager().beginTransaction().remove(taskCreatorFragment).commit();
         taskAdapter.updateList(taskDatabase.taskDao().getTasks());
     }
