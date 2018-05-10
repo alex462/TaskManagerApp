@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,7 @@ public class TaskCreatorFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.item_task, container, false);
+        View view = inflater.inflate(R.layout.fragment_task_creator, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -53,12 +54,14 @@ public class TaskCreatorFragment extends Fragment {
         return fragment;
     }
 
-    @OnClick(R.id.navigation_add_new)
-    protected void navAddButtonClicked() {
+    @OnClick(R.id.submit_button)
+    protected void submitButtonClicked() {
 
         if(titleEditText.getText().toString().isEmpty() || dateEditText.getText().toString().isEmpty() || detailsEditText.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "ALL FIELDS REQUIRED", Toast.LENGTH_LONG).show();
         } else {
+//            Toast.makeText(getActivity(), "submit call made, unsuccessful", Toast.LENGTH_SHORT).show();
+
             Task task = new Task(titleEditText.getText().toString(), detailsEditText.getText().toString(), new Date());
             addTaskToDatabase(task);
         }
@@ -66,6 +69,7 @@ public class TaskCreatorFragment extends Fragment {
 
     private void addTaskToDatabase(final Task task) {
 
+//        Toast.makeText(getActivity(), "submit successful, addtodatabase call made, unsuccessful", Toast.LENGTH_LONG).show();
         taskDatabase.taskDao().addTask(task);
         activityCallback.addClicked();
 

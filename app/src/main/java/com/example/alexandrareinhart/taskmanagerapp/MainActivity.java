@@ -12,6 +12,7 @@ import android.view.GestureDetector;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -44,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
                     return true;
+                case R.id.navigation_add_new:
+//                    mTextMessage.setText(R.string.title_add_new);
+                    addNewButtonClicked();
+                    return true;
                 case R.id.navigation_view_all:
                     mTextMessage.setText(R.string.title_view_all);
                     return true;
@@ -71,9 +76,9 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
         this.gestureDetectorCompat = new GestureDetectorCompat(this, this);
         gestureDetectorCompat.setOnDoubleTapListener(this);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//        mTextMessage = (TextView) findViewById(R.id.message);
+//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     private void setUpRecyclerView() {
@@ -87,8 +92,8 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
         taskAdapter.notifyDataSetChanged();
     }
 
-    @OnClick(R.id.submit_button)
-    protected void submitButtonClicked() {
+    @OnClick(R.id.navigation_add_new)
+    protected void addNewButtonClicked() {
 
         taskCreatorFragment = TaskCreatorFragment.newInstance();
         taskCreatorFragment.attachParent(this);
@@ -104,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
     @Override
     public void addClicked() {
 
+//        Toast.makeText(this, "added to database, addclicked fail", Toast.LENGTH_LONG).show();
         getSupportFragmentManager().beginTransaction().remove(taskCreatorFragment).commit();
         taskAdapter.updateList(taskDatabase.taskDao().getTasks());
     }

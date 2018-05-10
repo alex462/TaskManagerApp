@@ -12,7 +12,7 @@
     <string name="enter_due_date">Enter due date</string>
     <string name="enter_details">Enter task details</string>
     <string name="submit">SUBMIT</string>
-    <string name="task_title">TITLE</string>
+    <string name="task_title">%1$s</string>
     <string name="complete_by_date">COMPLETE BY: %1$s</string>
     <string name="completed_on_date">COMPLETED ON: %1$s</string>
     <string name="view_details_text">Select to view details.</string>

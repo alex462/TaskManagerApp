@@ -86,26 +86,31 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
             //2:30:00 and last video 9:49
             //TODO - bind task, code method
+//            adapterCallback.getContext().getString(date)
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(task.getDate());
+            Date date = calendar.getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/YY", Locale.US);
             taskTitle.setText(task.getTaskTitle());
-            dueDate.setText(adapterCallback.getContext().getString(R.string.complete_by_date));
+            dueDate.setText(adapterCallback.getContext().getString(R.string.complete_by_date, formatter.format(date)));
 
             if(task.isPriority()) {
                 rowLayout.setBackgroundResource(R.color.paleRed);
-            }
+//            }
 
-            if(task.isCompleted()) {
-                completedDate.setVisibility(View.VISIBLE);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(task.getDate());
-                Date date = calendar.getTime();
-                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/YYYY", Locale.US);
-                completedDate.setText(adapterCallback.getContext().getString(R.string.completed_on_date, formatter.format(date)));
-                completedTasks.add(task);
-
-            } else {
+//            if(task.isCompleted()) {
+//                completedDate.setVisibility(View.VISIBLE);
+//                Calendar calendar = Calendar.getInstance();
+//                calendar.setTime(task.getDate());
+//                Date date = calendar.getTime();
+//                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/YYYY", Locale.US);
+//                completedDate.setText(adapterCallback.getContext().getString(R.string.completed_on_date, formatter.format(date)));
+//                completedTasks.add(task);
+//
+//            } else {
                 rowLayout.setBackgroundResource(R.color.paleGreen);
                 completedDate.setVisibility(View.INVISIBLE);
-                incompleteTasks.add(task);
+//                incompleteTasks.add(task);
             }
         }
 
