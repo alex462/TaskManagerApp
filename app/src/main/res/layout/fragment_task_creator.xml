@@ -10,10 +10,10 @@
     <TextView
         android:id="@+id/instructions_textView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:text="@string/add_task_instructions"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
@@ -30,13 +30,12 @@
         android:hint="@string/enter_title"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
-        android:paddingTop="10dp"
+        android:paddingTop="32dp"
         android:textColorHint="@color/paleRed"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.215">
+        app:layout_constraintTop_toBottomOf="@id/instructions_textView"
+        >
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/title_input_editText"
@@ -98,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@color/colorAccent"
