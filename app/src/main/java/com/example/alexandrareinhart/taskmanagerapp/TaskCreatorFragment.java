@@ -21,6 +21,8 @@ import butterknife.OnClick;
 
 public class TaskCreatorFragment extends Fragment {
 
+    //TODO - add recycler view to Creator screen
+
     private ActivityCallback activityCallback;
     private TaskDatabase taskDatabase;
 
@@ -31,7 +33,8 @@ public class TaskCreatorFragment extends Fragment {
     @BindView(R.id.details_input_editText)
     protected TextInputEditText detailsEditText;
 
-    @Nullable
+
+        @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_task_creator, container, false);
