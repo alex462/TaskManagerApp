@@ -4,17 +4,27 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GestureDetectorCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.alexandrareinhart.taskmanagerapp.ViewPagerTabs.ViewAllFragment;
+import com.example.alexandrareinhart.taskmanagerapp.ViewPagerTabs.ViewCompletedFragment;
+import com.example.alexandrareinhart.taskmanagerapp.ViewPagerTabs.ViewIncompleteFragment;
 
 import java.util.List;
 
@@ -35,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
     private List<Task> incompleteTasks;
     private List<Task> completedTasks;
     private GestureDetectorCompat gestureDetectorCompat;
+
+    private SectionsPagerAdapter sectionsPagerAdapter;
+    private ViewPager viewPager;
+
 
     private TextView mTextMessage;
 
@@ -72,16 +86,46 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
         ButterKnife.bind(this);
 
         taskDatabase = ((TaskApplication) getApplicationContext()).getDatabase();
+
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.navigation);
+//        setSupportActionBar(toolbar);
+
+        sectionsPagerAdapter= new SectionsPagerAdapter(getSupportFragmentManager());
+
+//TODO - FIX THIS SHIT 
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
         
 //        setUpRecyclerView();
 
-        this.gestureDetectorCompat = new GestureDetectorCompat(this, this);
-        gestureDetectorCompat.setOnDoubleTapListener(this);
+//        this.gestureDetectorCompat = new GestureDetectorCompat(this, this);
+//        gestureDetectorCompat.setOnDoubleTapListener(this);
 
 //        mTextMessage = (TextView) findViewById(R.id.message);
 //        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 //        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.navigation, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.navigation_home || id == R.id.navigation_add_new || id == R.id.navigation_view_all || id == R.id.navigation_view_incomplete || id == R.id.navigation_view_completed) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void setUpRecyclerView() {
 
@@ -183,5 +227,33 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         return false;
+    }
+}
+
+class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+    public SectionsPagerAdapter(FragmentManager fm) {
+        super(fm);
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+        switch (position) {
+            case 0:
+                ViewAllFragment allTab = new ViewAllFragment();
+                return allTab;
+            case 1:
+                ViewIncompleteFragment incompleteTab = new ViewIncompleteFragment();
+                return incompleteTab;
+            case 2:
+                ViewCompletedFragment completedTab = new ViewCompletedFragment();
+                return completedTab;
+        }
+        return null;
+    }
+
+    @Override
+    public int getCount() {
+        return 3;
     }
 }
