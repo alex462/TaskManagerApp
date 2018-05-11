@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
 
         taskDatabase = ((TaskApplication) getApplicationContext()).getDatabase();
         
-        setUpRecyclerView();
+//        setUpRecyclerView();
 
         this.gestureDetectorCompat = new GestureDetectorCompat(this, this);
         gestureDetectorCompat.setOnDoubleTapListener(this);
@@ -100,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
         taskCreatorFragment = TaskCreatorFragment.newInstance();
         taskCreatorFragment.attachParent(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, taskCreatorFragment).commit();
+
+
     }
 
     @Override
@@ -111,7 +113,10 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
     @Override
     public void addClicked() {
 
+        setUpRecyclerView();
+
         getSupportFragmentManager().beginTransaction().remove(taskCreatorFragment).commit();
+
         taskAdapter.updateList(taskDatabase.taskDao().getTasks());
 
         View view = this.getCurrentFocus();
@@ -119,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+
+
     }
 
     //selects task to view details
