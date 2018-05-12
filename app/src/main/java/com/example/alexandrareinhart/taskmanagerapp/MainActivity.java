@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.Adapt
 
         sectionsPagerAdapter= new SectionsPagerAdapter(getSupportFragmentManager());
 
-//TODO - FIX THIS SHIT 
+//TODO - FIX THIS SHIT
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         
