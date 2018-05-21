@@ -1,12 +1,16 @@
 package com.example.alexandrareinhart.taskmanagerapp;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.Date;
 
+
 @Entity
-public class Task {
+public class Task implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -17,11 +21,31 @@ public class Task {
     private Date date;
     private boolean isCompleted;
 
+//    @Ignore
+//    public Task(){
+//
+//    }
+
     public Task(String taskTitle, String taskDetails, Date date) {
         this.taskTitle = taskTitle;
         this.taskDetails = taskDetails;
         this.date = date;
     }
+
+    protected Task(Parcel in) {
+    }
+
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
 
     public String getTaskTitle() {
         return taskTitle;
@@ -70,4 +94,15 @@ public class Task {
     public void setCompleted(boolean completed) {
         isCompleted = completed;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
 }
+

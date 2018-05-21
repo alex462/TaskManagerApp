@@ -1,36 +1,35 @@
 package com.example.alexandrareinhart.taskmanagerapp;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.text.SpannableStringBuilder;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.util.Calendar;
+import com.example.alexandrareinhart.TaskManagerApp.R;
+import com.example.alexandrareinhart.TaskManagerApp.Task;
+import com.example.alexandrareinhart.TaskManagerApp.TaskAdapter;
+import com.example.alexandrareinhart.TaskManagerApp.TaskApplication;
+import com.example.alexandrareinhart.TaskManagerApp.TaskDatabase;
+
 import java.util.Date;
-import java.util.zip.Inflater;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TaskCreatorFragment extends Fragment {
-
-    //TODO - add recycler view to Creator screen
+public class TaskCreatorFragment extends Fragment implements TaskAdapter.AdapterCallback {
 
     private ActivityCallback activityCallback;
     private TaskDatabase taskDatabase;
+    private TaskAdapter taskAdapter;
+    private List<Task> allTasksList;
 
     @BindView(R.id.title_input_editText)
     protected TextInputEditText titleEditText;
@@ -39,8 +38,11 @@ public class TaskCreatorFragment extends Fragment {
     @BindView(R.id.details_input_editText)
     protected TextInputEditText detailsEditText;
 
+    public TaskCreatorFragment() {
 
-        @Nullable
+    }
+
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_task_creator, container, false);
@@ -51,7 +53,9 @@ public class TaskCreatorFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         taskDatabase = ((TaskApplication) getActivity().getApplication()).getDatabase();
+
     }
 
     public static TaskCreatorFragment newInstance() {
@@ -72,73 +76,53 @@ public class TaskCreatorFragment extends Fragment {
 //            Toast.makeText(getActivity(), "submit call made, unsuccessful", Toast.LENGTH_SHORT).show();
 
             Task task = new Task(titleEditText.getText().toString(), detailsEditText.getText().toString(), new Date());
+
             addTaskToDatabase(task);
+//            FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+            //Reset fields in fragment
+//            ft.detach(AddNewFragment.this).attach(AddNewFragment.this).commit();
+//            activityCallback.saveTask(task);
+
+//            titleEditText.getText().clear();
+//            detailsEditText.getText().clear();
+//            dateEditText.getText().clear();
+//            View view = getLayoutInflater().inflate(R.layout.fragment_add_new, AddNewFragment).commit();
+
+
+
         }
     }
 
     private void addTaskToDatabase(final Task task) {
 
+        taskAdapter = new TaskAdapter(allTasksList, this);
         taskDatabase.taskDao().addTask(task);
+        taskAdapter.updateList(taskDatabase.taskDao().getTasks());
+
         activityCallback.addClicked();
 
-        Toast.makeText(getActivity(), "TASK ADDED SUCCESSFULLY", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "call to database made", Toast.LENGTH_LONG).show();
     }
-
-//    private void getDateFromEditText() {
-////        final Calendar c = Calendar.getInstance();
-////        int year = c.get(Calendar.YEAR);
-////        int month = c.get(Calendar.MONTH);
-////        int day = c.get(Calendar.DAY_OF_MONTH);
-//
-//
-//
-//        dateEditText.setOnClickListener(new View.OnClickListener() {
-////
-////            @Override
-////            public Dialog onCreateDialog(Bundle savedInstanceState) {
-////                // Use the current date as the default date in the picker
-////                final Calendar c = Calendar.getInstance();
-////                int year = c.get(Calendar.YEAR);
-////                int month = c.get(Calendar.MONTH);
-////                int day = c.get(Calendar.DAY_OF_MONTH);
-////
-////                // Create a new instance of DatePickerDialog and return it
-////                return new DatePickerDialog(getActivity(),, year, month, day);
-////                }
-////
-////                public void onDateSet(DatePicker view, int year, int month, int day) {
-////                // Do something with the date chosen by the user
-////                    dateEditText.setText(day + "/" + (month + 1) + "/" + year);
-////                    }
-////        }
-//            @Override
-//            public void onClick(View view) {
-//                final Calendar c = Calendar.getInstance();
-//                int year = c.get(Calendar.YEAR);
-//                int month = c.get(Calendar.MONTH);
-//                int day = c.get(Calendar.DAY_OF_MONTH);
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker datePicker, int dayOfMonth, int month, int year) {
-//
-//                    }
-//                }, 0, 0, 0);
-//                dateEditText.setText(day + "/" + (month + 1) + "/" + year);
-//                datePickerDialog.show();
-//            }
-//
-//        }
-//
-//        );
-//    }
 
     public void attachParent(ActivityCallback activityCallback) {
 
         this.activityCallback = activityCallback;
     }
 
+    @Override
+    public void rowClicked(Task task) {
+
+    }
+
+    @Override
+    public void rowLongClicked(Task task) {
+
+    }
+
     public interface ActivityCallback {
 
         void addClicked();
+        void saveTask(Task task);
     }
 }
